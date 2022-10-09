@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-04-feedback",
+  "name": "goit-react-hw-03-image-finder",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Solod-S.github.io/goit-react-hw-04-feedback",
+  "homepage": "https://Solod-S.github.io/goit-react-hw-03-image-finder",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
@@ -29,12 +29,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Solod-S/goit-react-hw-04-feedback.git"
+    "url": "git+https://github.com/Solod-S/goit-react-hw-03-image-finder.git"
   },
   "author": "Solod S.",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Solod-S/goit-react-hw-04-feedback/issues"
+    "url": "https://github.com/Solod-S/goit-react-hw-03-image-finder/issues"
   },
   "scripts": {
     "start": "react-scripts start",
