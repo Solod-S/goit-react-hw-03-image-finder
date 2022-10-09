@@ -83,7 +83,8 @@ class App extends React.Component {
   };
 
   render() {
-    const { images, showModal, zoomImage } = this.state;
+    const { images, showModal, zoomImage, isLoading } = this.state;
+
     return (
       <>
         <Searchbar onImgsSeach={this.handleFormSubmit} />
@@ -107,10 +108,8 @@ class App extends React.Component {
             setZoomImage={this.setZoomImage}
           />
         )}
-        {this.state.isLoading && <LoaderSpiner />}
-        {this.state.images.length > 11 && (
-          <Button onLoadMore={this.onLoadMore} />
-        )}
+        {isLoading && <LoaderSpiner />}
+        {images.length > 11 && <Button onLoadMore={this.onLoadMore} />}
 
         {showModal && <Modal whenClose={this.toggleModal} data={zoomImage} />}
       </>
