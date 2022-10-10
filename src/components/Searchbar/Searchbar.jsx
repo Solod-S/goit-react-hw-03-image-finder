@@ -32,7 +32,7 @@ export default class Searchbar extends React.Component {
     const { handleSubeventmit, handleNameChange } = this;
     const { searchQuery } = this.state;
     return (
-      <SearchBarHeader id="up">
+      <SearchBarHeader>
         <SearchBarLinkLogo
           href="https://pixabay.com/api/docs/"
           target="_blank"

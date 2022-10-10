@@ -87,7 +87,7 @@ class App extends React.Component {
     const { images, showModal, zoomImage, isLoading } = this.state;
 
     return (
-      <>
+      <div id="up">
         <Searchbar onImgsSeach={this.handleFormSubmit} />
         <ToastContainer
           transition={Flip}
@@ -111,10 +111,9 @@ class App extends React.Component {
         )}
         {isLoading && <LoaderSpiner />}
         {images.length > 11 && <Button onLoadMore={this.onLoadMore} />}
-
+        {images.length > 11 && <ScrollChevron />}
         {showModal && <Modal whenClose={this.toggleModal} data={zoomImage} />}
-        <ScrollChevron />
-      </>
+      </div>
     );
   }
 }
