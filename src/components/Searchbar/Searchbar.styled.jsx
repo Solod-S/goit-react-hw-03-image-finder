@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 export const SearchBarHeader = styled.header`
-  background-color: #444444;
+  z-index: 2;
+  display: flex;
+  position: fixed;
+  width: 100%;
   justify-content: center;
   justify-content: space-between;
-
-  display: flex;
+  background-color: #444444;
   padding: 18px 50px;
   transition: padding 250ms linear;
 `;

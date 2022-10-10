@@ -6,6 +6,7 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
 import { Modal } from './Modal/Modal';
 import { LoaderSpiner } from './Loader/Loader';
+import { ScrollChevron } from './ScrollChevron/ScrollChevron';
 import { toast } from 'react-toastify';
 import { ToastContainer, Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -112,6 +113,7 @@ class App extends React.Component {
         {images.length > 11 && <Button onLoadMore={this.onLoadMore} />}
 
         {showModal && <Modal whenClose={this.toggleModal} data={zoomImage} />}
+        <ScrollChevron />
       </>
     );
   }
