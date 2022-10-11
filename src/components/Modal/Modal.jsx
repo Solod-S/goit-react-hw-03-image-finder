@@ -7,7 +7,12 @@ const modalRoot = document.querySelector('#modal-root');
 export class Modal extends React.Component {
   static propTypes = {
     whenClose: PropTypes.func.isRequired,
-    data: PropTypes.object.isRequired,
+    data: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
+      tags: PropTypes.string.isRequired,
+    })
   };
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);

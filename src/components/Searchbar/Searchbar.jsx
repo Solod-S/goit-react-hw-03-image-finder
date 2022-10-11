@@ -22,6 +22,9 @@ export default class Searchbar extends React.Component {
     const { onImgsSeach } = this.props;
     const { searchQuery } = this.state;
     event.preventDefault();
+    if(searchQuery === "") {
+      return
+    }
     onImgsSeach(searchQuery);
     this.setState({ searchQuery: '' });
   };

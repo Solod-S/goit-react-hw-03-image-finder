@@ -25,16 +25,29 @@ class App extends React.Component {
   async componentDidUpdate(prevProps, prevState) {
     const prevSearch = prevState.searchQuery;
     const currentSearch = this.state.searchQuery;
-    if (prevSearch !== currentSearch && this.searchQuery !== '') {
+    const prevPage = prevState.page;
+    const currentPage= this.state.page;
+    if (prevSearch !== currentSearch  || prevPage !== currentPage ) {
       this.setState({ isLoading: true });
 
       try {
         const imagesResponse = await GetImages(currentSearch, this.state.page);
         const images = imagesResponse.data.hits;
-        this.setState({ images: images });
+        const preparedImgs = images.map(
+          ({ id, webformatURL, largeImageURL, tags }) => ({
+            id,
+            webformatURL,
+            largeImageURL,
+            tags,
+          })
+        );
+        
+          this.setState(({images}) => ({
+      images: [...images, ...preparedImgs],
+    }));
         this.setState({ isLoading: false });
-        this.setState(prevState => ({ page: prevState.page + 1 }));
-        toast.success(`Мы нашли ${imagesResponse.data.totalHits} картинок.`, {
+        
+        toast.success(`Всего было найдено ${imagesResponse.data.totalHits} картинок.`, {
           position: 'bottom-right',
           autoClose: 1000,
           hideProgressBar: false,
@@ -59,20 +72,17 @@ class App extends React.Component {
     }
   }
   handleFormSubmit = searchQuery => {
+    if(searchQuery !== this.state.searchQuery) {
+      this.setState({images: [],})
+    }
+  
     this.setState({ searchQuery });
     this.setState({ page: 1 });
   };
   onLoadMore = async () => {
-    const currentSearch = this.state.searchQuery;
-    this.setState(prevState => ({ page: prevState.page + 1 }));
-    this.setState({ isLoading: true });
-    const imagesResponse = await GetImages(currentSearch, this.state.page);
-    const images = imagesResponse.data.hits;
-
-    this.setState(prevState => ({
-      images: [...prevState.images, ...images],
-    }));
-    this.setState({ isLoading: false });
+    
+    this.setState(({page}) => ({ page: page + 1 }));
+    
   };
   toggleModal = () => {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
@@ -102,7 +112,7 @@ class App extends React.Component {
           draggable={false}
           pauseOnHover
         />
-        {images && (
+        {images.length  && (
           <ImageGallery
             images={images}
             openModal={this.toggleModal}
