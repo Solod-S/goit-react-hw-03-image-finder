@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 export const ImageGalleryList = styled.ul`
-  padding-top: 94px;
   position: relative;
-  /* top: 58px; */
+  padding: 94px 12px 0 12px;
   flex-flow: wrap;
   justify-content: center;
   margin: 0 auto;

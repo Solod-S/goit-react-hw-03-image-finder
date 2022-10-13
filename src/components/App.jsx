@@ -26,8 +26,8 @@ class App extends React.Component {
     const prevSearch = prevState.searchQuery;
     const currentSearch = this.state.searchQuery;
     const prevPage = prevState.page;
-    const currentPage= this.state.page;
-    if (prevSearch !== currentSearch  || prevPage !== currentPage ) {
+    const currentPage = this.state.page;
+    if (prevSearch !== currentSearch || prevPage !== currentPage) {
       this.setState({ isLoading: true });
 
       try {
@@ -41,21 +41,24 @@ class App extends React.Component {
             tags,
           })
         );
-        
-          this.setState(({images}) => ({
-      images: [...images, ...preparedImgs],
-    }));
+
+        this.setState(({ images }) => ({
+          images: [...images, ...preparedImgs],
+        }));
         this.setState({ isLoading: false });
-        
-        toast.success(`Всего было найдено ${imagesResponse.data.totalHits} картинок.`, {
-          position: 'bottom-right',
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-        });
+
+        toast.success(
+          `Всего было найдено ${imagesResponse.data.totalHits} картинок.`,
+          {
+            position: 'bottom-right',
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+          }
+        );
       } catch (error) {
         console.log(error, `Попробуйте перезагрузить страницу`);
         toast.warn('Упс... Попробуйте перезагрузить страницу!', {
@@ -72,17 +75,15 @@ class App extends React.Component {
     }
   }
   handleFormSubmit = searchQuery => {
-    if(searchQuery !== this.state.searchQuery) {
-      this.setState({images: [],})
+    if (searchQuery !== this.state.searchQuery) {
+      this.setState({ images: [] });
     }
-  
+
     this.setState({ searchQuery });
     this.setState({ page: 1 });
   };
   onLoadMore = async () => {
-    
-    this.setState(({page}) => ({ page: page + 1 }));
-    
+    this.setState(({ page }) => ({ page: page + 1 }));
   };
   toggleModal = () => {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
@@ -92,7 +93,9 @@ class App extends React.Component {
     this.setState(({ zoomImage }) => ({ zoomImage: imageLink }));
     this.toggleModal();
   };
-
+  changeZoomImage = value => {
+    this.setState(prevState => ({ zoomImage: prevState.zoomImage + value }));
+  };
   render() {
     const { images, showModal, zoomImage, isLoading } = this.state;
 
@@ -112,7 +115,7 @@ class App extends React.Component {
           draggable={false}
           pauseOnHover
         />
-        {images.length  && (
+        {images.length && (
           <ImageGallery
             images={images}
             openModal={this.toggleModal}
@@ -122,7 +125,14 @@ class App extends React.Component {
         {isLoading && <LoaderSpiner />}
         {images.length > 11 && <Button onLoadMore={this.onLoadMore} />}
         {images.length > 11 && <ScrollChevron />}
-        {showModal && <Modal whenClose={this.toggleModal} data={zoomImage} />}
+        {showModal && (
+          <Modal
+            whenClose={this.toggleModal}
+            data={this.state.images}
+            indx={zoomImage}
+            changeZoomImage={this.changeZoomImage}
+          />
+        )}
       </div>
     );
   }
